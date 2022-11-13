@@ -119,13 +119,11 @@ function addAlbumsItem(item, image) {
     </div>`
     search_list_album.insertAdjacentHTML('beforeend', item_artist_templ)
 }
-function addTrackItem(item) {
-    if (item === undefined)
-        return;
+function addTrackItem(item, image) {
     const item_artist_templ = `
     <tr class="table-tracks-row">
         <td class="table-tracks-image">
-            <img src=${item.album.image[3]['#text']} alt="user-image">
+            <img src=${image} alt="user-image">
         </td>
         <td class="table-tracks-artist">
             ${item.artist.name}
@@ -162,7 +160,13 @@ search_form.addEventListener('submit', (async event => {
     clearTrackList()
     tracksList.results.trackmatches.track.slice(0, 6).forEach(async element => {
         const trackInfoData = await trackInfo(element)
-        if (trackInfoData !== undefined)
-            addTrackItem(trackInfoData.track)
+        console.log(trackInfoData)
+        if (trackInfoData !== undefined && trackInfoData.error === undefined) {
+            image = trackInfoData.album?.image[3]['#text'];
+            if (image != null)
+                addTrackItem(trackInfoData.track, image)
+            else
+                addTrackItem(trackInfoData.track, empty_image)
+        }
     });
 }))

@@ -3,6 +3,11 @@ const mus_list = document.getElementById("list_top_mus")
 const artist_list = document.getElementById("list_top_artist")
 const empty_image = "images/player_default_album.png"
 
+function handleError(err) {
+  console.log("error: ", err)
+}
+
+/** Functions for adding elements to the page. */
 function addMusItem(item) {
   const item_mus_templ = `<div class="grid-item">
                             <div class="card">
@@ -36,6 +41,7 @@ function onlyUniqueTopTracks(value, index, self) {
   return self.findIndex(item => item.artist.name == value.artist.name) === index;
 }
 
+/** Functions for working with the API last.fm */
 async function fetchMusList() {
   const resp = await fetch(`http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${api_key}&format=json`)
   try {
@@ -64,10 +70,10 @@ async function fetchArtistList() {
   }
 }
 async function trackInfo(element) {
-  const trackInfo = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${api_key}&artist=${element.artist.name}&track=${element.name}&format=json`)
+  const resp = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${api_key}&artist=${element.artist.name}&track=${element.name}&format=json`)
   try {
     if (resp.status === 200) {
-      const trackInfoData = await trackInfo.json()
+      const trackInfoData = await resp.json()
       return trackInfoData
     }
     else
@@ -90,6 +96,7 @@ async function artistAlbums(element) {
   }
 }
 
+/** loading data from last.fm */
 async function main() {
   const musList = await fetchMusList()
   const artistList = await fetchArtistList()
