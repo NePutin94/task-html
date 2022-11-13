@@ -171,6 +171,11 @@ a:hover {
     padding-bottom: 12px;
 }
 
+.grayout {
+    opacity: 0.6; 
+    filter: alpha(opacity = 60); 
+    font-family: 'NationalFont'
+}
 
 @media screen and (max-width: 600px) {
     .column {
