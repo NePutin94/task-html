@@ -1,11 +1,20 @@
 const api_key = 'e4fc8660e1c281125ef85d582f8ff4f3'
 
+
+const search_area = document.getElementById("search_area")
 const search_input = document.getElementById("serach_input")
 const search_form = document.getElementById("search_form")
 const search_list_artist = document.getElementById("search_list_artist")
 const search_list_album = document.getElementById("search_albums_artist")
 const search_albums_track = document.getElementById("search_albums_track")
 const empty_image = "images/player_default_album.png"
+
+function slice_str(str) {
+    if (str.length > 72)
+        return str.slice(0, 72) + "..."
+    else
+        return str
+}
 /** Functions clear the body of lists. */
 function clearArtistList() {
     search_list_artist.innerHTML = ''
@@ -18,7 +27,7 @@ function clearTrackList() {
 }
 
 function handleError(err) {
-    console.log("error: ", err)
+    alert("error: ", err);
 }
 
 /** Functions for working with the API last.fm */
@@ -91,12 +100,12 @@ async function artistAlbums(element) {
 }
 
 /** Functions for adding elements to the page. */
-function addArtistItem(item, image) {
+function addArtistItem(item, image, artist_url) {
     const item_artist_templ = `
     <div class="grid-item">
         <div class="card">
             <div class="card_info">
-                <h2>${item.name}</h2>
+                <a href="${artist_url}">${slice_str(item.name)}<a/>
             </div>
             <div class="pickgradient">
                 <img src=${image} alt="user-image">
@@ -105,12 +114,12 @@ function addArtistItem(item, image) {
     </div>`
     search_list_artist.insertAdjacentHTML('beforeend', item_artist_templ)
 }
-function addAlbumsItem(item, image) {
+function addAlbumsItem(item, image, album_url) {
     const item_artist_templ = `
     <div class="grid-item">
         <div class="card">
             <div class="card_info">
-                <h2>${item.name}</h2>
+                <h2><a href="${album_url}">${slice_str(item.name)}</a></h2>
             </div>
             <div class="pickgradient">
                 <img src=${image} alt="user-image">
@@ -119,54 +128,59 @@ function addAlbumsItem(item, image) {
     </div>`
     search_list_album.insertAdjacentHTML('beforeend', item_artist_templ)
 }
-function addTrackItem(item, image) {
+function addTrackItem(item, image, track_url) {
     const item_artist_templ = `
     <tr class="table-tracks-row">
         <td class="table-tracks-image">
             <img src=${image} alt="user-image">
         </td>
         <td class="table-tracks-artist">
-            ${item.artist.name}
+            ${slice_str(item.artist.name)}
         </td>
         <td class="table-tracks-track">
-            ${item.name}
+            <a href = "${track_url}">${slice_str(item.name)}</a>
         </td>
     </tr>`
     search_albums_track.insertAdjacentHTML('beforeend', item_artist_templ)
 }
-
+search_area.style.visibility = 'hidden'
 /** form callback **/
 search_form.addEventListener('submit', (async event => {
     event.preventDefault();
-    const artistsList = await searchArtist();
-    const albumsList = await searchAlbum();
-    const tracksList = await searchTrcak()
+    if (search_input.value.trim().length > 0) {
+        search_area.style.visibility = 'visible'
+        const artistsList = await searchArtist();
+        const albumsList = await searchAlbum();
+        const tracksList = await searchTrcak()
 
-    clearArtistList()
-    artistsList.results.artistmatches.artist.slice(0, 6).forEach(async element => {
-        const artistAlbumsData = await artistAlbums(element)
-        image = artistAlbumsData.topalbums?.album[0]?.image[3]['#text'];
-        if (image != null)
-            addArtistItem(element, artistAlbumsData.topalbums.album[0].image[3]['#text'])
-        else
-            addArtistItem(element, empty_image)
-    });
-
-    clearAlbumList()
-    albumsList.results.albummatches.album.slice(0, 6).forEach(async element => {
-        addAlbumsItem(element, element.image[3]['#text'])
-    });
-
-    clearTrackList()
-    tracksList.results.trackmatches.track.slice(0, 6).forEach(async element => {
-        const trackInfoData = await trackInfo(element)
-        console.log(trackInfoData)
-        if (trackInfoData !== undefined && trackInfoData.error === undefined) {
-            image = trackInfoData.album?.image[3]['#text'];
+        clearArtistList()
+        artistsList.results.artistmatches.artist.slice(0, 6).forEach(async element => {
+            const artistAlbumsData = await artistAlbums(element)
+            image = artistAlbumsData.topalbums?.album[0]?.image[3]['#text'];
             if (image != null)
-                addTrackItem(trackInfoData.track, image)
+                addArtistItem(element, artistAlbumsData.topalbums.album[0].image[3]['#text'], element.url)
             else
-                addTrackItem(trackInfoData.track, empty_image)
-        }
-    });
+                addArtistItem(element, empty_image, element.url)
+        });
+
+        clearAlbumList()
+        albumsList.results.albummatches.album.slice(0, 6).forEach(async element => {
+            addAlbumsItem(element, element.image[3]['#text'], element.url)
+        });
+
+        clearTrackList()
+        tracksList.results.trackmatches.track.slice(0, 6).forEach(async element => {
+            const trackInfoData = await trackInfo(element)
+            console.log(trackInfoData)
+            if (trackInfoData !== undefined && trackInfoData.error === undefined) {
+                image = trackInfoData.album?.image[3]['#text'];
+                if (image != null)
+                    addTrackItem(trackInfoData.track, image, element.url)
+                else
+                    addTrackItem(trackInfoData.track, empty_image, element.url)
+            }
+        });
+    }
+    else
+    search_area.style.visibility = 'hidden'
 }))

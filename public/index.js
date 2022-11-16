@@ -4,20 +4,34 @@ const artist_list = document.getElementById("list_top_artist")
 const empty_image = "images/player_default_album.png"
 
 function handleError(err) {
-  console.log("error: ", err)
+  alert("error: ", err);
+}
+
+function slice_str(str) {
+  if (str.length > 72)
+    return str.slice(0, 72) + "..."
+  else
+    return str
 }
 
 /** Functions for adding elements to the page. */
 function addMusItem(item) {
+  var tags = ""
+  item.toptags.tag.slice(0, 3).forEach(element => {
+    tags += `<div class="tag"><a href="${element.url}">${element.name}<a></div>`
+  })
   const item_mus_templ = `<div class="grid-item">
                             <div class="card">
                               <div class="card_img">
                                 <img src=${item.album.image[2]['#text']} alt="user-image">
                               </div>
                               <div class="card_info">
-                                <h2>${item.name}</h2>
-                                <p>${item.artist.name}</p>
+                                <h2>${slice_str(item.name)}</h2>
+                                <p>${slice_str(item.artist.name)}</p>
                                 <p class="grayout">Play count: ${item.playcount}<p>
+                                <div class="card_info_tag">
+                                ${tags}
+                                </div>
                               </div>
                             </div>
                         </div>`
@@ -30,7 +44,8 @@ function addArtistItem(item, image) {
                                     <img src=${image} alt="user-image">
                                   </div>
                                   <div class="card_info">
-                                    <h2>${item.name}</h2>
+                                    <h2>${slice_str(item.name)}</h2>
+                                    <p class="grayout">Listeners: ${item.listeners}<p>
                                   </div>
                                 </div>
                             </div>`
@@ -110,10 +125,11 @@ async function main() {
       addArtistItem(element, empty_image)
   });
 
-  musList.slice(0, 6).forEach(async element => {
-    const trackInfoData = await trackInfo(element)
-    addMusItem(trackInfoData.track)
-  });
+  musList.slice(0, 6)
+    .forEach(async element => {
+      const trackInfoData = await trackInfo(element)
+      addMusItem(trackInfoData.track)
+    });
 }
 
 main()
