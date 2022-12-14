@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <link rel="stylesheet" href="index.css">
+  <script src="index.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
@@ -16,13 +17,11 @@
   <div class="nav_bar">
     <div class="topnav">
       <div class="topnav-centered">
-        <a href="#home" class="active">LAST.FM</a>
+        <a href="index.html" class="active">LAST.FM</a>
       </div>
       <div class="topnav-right">
-        <a href="#news">Home</a>
-        <a href="#contact">Live</a>
-        <a href="#about">Music</a>
-        <a href="#about">Charts</a>
+        <a href="index.html">Home</a>
+        <a href="search.html">Search</a>
       </div>
     </div>
   </div>
@@ -31,137 +30,15 @@
     <h1>Music</h1>
   </div>
   <div class="mus-list">
-    <div class="grid-container">
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/MachineGitlLogo.webp" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Machine girl</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/RadioHeadLogo.jpg" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Radio Head</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/EyeDressLogo.png" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Eyedress</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/MachineGitlLogo.webp" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Machine girl</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/RadioHeadLogo.jpg" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Radio Head</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/EyeDressLogo.png" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Eyedress</h2>
-          </div>
-        </div>
-      </div>
+    <div class="grid-container" id="list_top_mus">
     </div>
   </div>
-
   <div class="separator"></div>
-
   <div class="mus-list-header">
     <h1>Artists</h1>
   </div>
   <div class="mus-list">
-    <div class="grid-container">
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/MachineGitlLogo.webp" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Machine girl</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/RadioHeadLogo.jpg" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Radio Head</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/EyeDressLogo.png" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Eyedress</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/MachineGitlLogo.webp" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Machine girl</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/RadioHeadLogo.jpg" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Radio Head</h2>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card_img">
-            <img src="images/EyeDressLogo.png" alt="user-image">
-          </div>
-          <div class="card_info">
-            <h2>Eyedress</h2>
-          </div>
-        </div>
-      </div>
+    <div class="grid-container" id="list_top_artist">
     </div>
   </div>
 
