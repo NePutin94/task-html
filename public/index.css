@@ -13,7 +13,7 @@ body {
 }
 
 footer {
-    margin-top: 100px;
+    margin-top: 40px;
     background-color: #242424;
 }
 
@@ -75,7 +75,7 @@ footer a{
 }
 
 .separator{
-    height: 100px;
+    height: 40px;
 }
 
 .mus-list {
@@ -94,21 +94,34 @@ footer a{
     text-align: center;
 }
 
-.row {
+.mus-list-row {
     margin: 0 -5px;
 }
 
-.row:after {
+.mus-list-row:after {
     content: "";
     display: table;
     clear: both;
 }
 
-.card {
+.card_mus {
     border: 1px solid #ddd;
     border-radius: 6px;
     max-width: 300px;
     min-width: 300px;
+    max-height: 300px;
+    min-height: 300px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.card_artist {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-width: 300px;
+    min-width: 300px;
+    max-height: 200px;
+    min-height: 200px;
     text-align: center;
     margin-top: 60px;
 }
