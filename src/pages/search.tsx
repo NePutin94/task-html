@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Album, Artist, checImageAlbum, checImageTrack, checlImage, fetchArtistAlbums, notUndefinedTrack, notUndefinedTrackSearch, searchAlbum, searchArtist, searchTrcak, slice_str, Track, trackInfoSearch } from "../api";
 import { useForm } from "react-hook-form";
 
-
+/* Auxiliary layout for the list of artist item */
 const ArtistListItem = ({ item, image }) => (
     <div className="grid-item-search">
         <div className="card-search">
@@ -16,6 +16,7 @@ const ArtistListItem = ({ item, image }) => (
     </div>
 );
 
+/* Auxiliary layout for the list of artists */
 function ArtistList(elem) {
     return (
         <div className="search-list">
@@ -28,6 +29,7 @@ function ArtistList(elem) {
     );
 }
 
+/* Auxiliary layout for the list of album item */
 const AlbumsListItem = ({ item, image }) => (
     <div className="grid-item-search">
         <div className="card-search">
@@ -41,6 +43,7 @@ const AlbumsListItem = ({ item, image }) => (
     </div>
 );
 
+/* Auxiliary layout for the list of albums */
 function AlbumsList(elem) {
     return (
         <div className="search-list">
@@ -53,6 +56,7 @@ function AlbumsList(elem) {
     );
 }
 
+/* Auxiliary layout for the list of track item */
 const TrackListItem = ({ item, image }) => (
     <tr className="table-tracks-row">
         <td className="table-tracks-image">
@@ -67,6 +71,7 @@ const TrackListItem = ({ item, image }) => (
     </tr>
 );
 
+/* Auxiliary layout for the list of tracks */
 function TrackList(elem) {
     return (
         <div className="search-list">
@@ -81,8 +86,10 @@ function TrackList(elem) {
     );
 }
 
+/* Auxiliary type for search layout */
 export type SearchState = { artists: Artist, tracks: Track, albums: Album, inputValue: string };
 
+/* The main layout of the search page */
 function SearchLayout() {
     const [state, setState] = useState<SearchState>({
         artists: [],

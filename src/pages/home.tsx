@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { checlImage, fetchArtistAlbums, fetchArtistList, fetchMusList, notUndefinedArtist, notUndefinedTrack, slice_str, Track, trackInfo } from "../api";
 
-
+/* Auxiliary layout for the list of musics tag */
 const TagListItem = ({ tag }) => (
     <div className="tag"><a href={tag.url}>{tag.name}</a></div>
 );
 
+/* Auxiliary layout for the list of music item */
 const MusListItem = ({ item }) => (
     <div className="grid-item">
         <div className="card_mus">
@@ -25,6 +26,7 @@ const MusListItem = ({ item }) => (
     </div>
 );
 
+/* Auxiliary layout for the list of musics */
 function MusicList() {
     const [state, setState] = useState<Track>([]);
     useEffect(() => {
@@ -51,6 +53,7 @@ function MusicList() {
     );
 }
 
+/* Auxiliary layout for the list of artist item */
 const ArtistListItem = ({ item, image }) => (
     <div className="grid-item">
         <div className="card_artist">
@@ -65,6 +68,7 @@ const ArtistListItem = ({ item, image }) => (
     </div>
 );
 
+/* Auxiliary layout for the list of artists */
 function ArtistList() {
     const [state, setState] = useState<Track>([]);
     useEffect(() => {
@@ -92,6 +96,7 @@ function ArtistList() {
     );
 }
 
+/* Layout of a page with a list of popular music and artists */
 function MusLayout() {
     return (
         <div>

@@ -6,6 +6,7 @@ import MusLayout from './pages/home';
 import Layout from './pages/layout';
 import SearchLayout from './pages/search';
 
+/* application routes */
 export default function App() {
     return (
         <BrowserRouter>
